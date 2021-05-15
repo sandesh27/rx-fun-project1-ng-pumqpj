@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { shareReplay, startWith } from 'rxjs/operators';
+import { map, shareReplay, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'my-app',
@@ -50,8 +50,10 @@ export class AppComponent implements OnInit, OnDestroy {
       this.value = val;
     });
 
+    this.doubleValueObs = this.rangeObs.pipe(map(val => val * 2));
+
     this.doubleValueSub = this.doubleValueObs.subscribe(val => {
-      this.doubleValue = val * 2;
+      this.doubleValue = val;
     });
   }
   rangeChanged(value) {
